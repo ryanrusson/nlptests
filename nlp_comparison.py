@@ -19,6 +19,16 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 
+### (START) Extra stuff to make my RTX card work ###
+# https://kobkrit.com/using-allow-growth-memory-option-in-tensorflow-and-keras-dc8c8081bc96
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+config.log_device_placement = True
+sess = tf.Session(config=config)
+set_session(sess)
+### (END) Extra stuff to make my RTX card work ###
 
 # Function for cleaning up the review text
 def clean_review(text):
@@ -51,8 +61,8 @@ def bin_encoder(y):
 
 # Control Logic (for faster testing)
 deepnn = False
-cnn = True
-lstm = False
+cnn = False
+lstm = True
 transfer = False
 
 # Reading in the review text from IMDB Sentiment dataset
